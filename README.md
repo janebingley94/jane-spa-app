@@ -16,21 +16,17 @@ export WORKER_URL=https://api.janebingley.cc/chat
 yarn build
 ```
 
-## Cloudflare setup
+## Cloudflare setup (no GitHub Actions)
 
-1) **Worker route**
-- Choose: `https://api.janebingley.cc/chat`
-- Ensure `wrangler.toml` uses `https://api.janebingley.cc/chat*` in the `routes` field.
-
-2) **Cloudflare Pages**
-- Create a Pages project named `jane-spa-app` and link to the repo.
+1) **Connect Pages**
+- Cloudflare Dashboard → Pages → Create project → Connect to your GitHub repo.
 - Build command: `yarn build`
 - Output directory: `dist`
-- Add environment variable `WORKER_URL` in Pages settings (or via GitHub Actions secret).
+- Environment variable: `WORKER_URL=https://api.janebingley.cc/chat`
 
-3) **GitHub Actions secrets**
+2) **Connect Worker**
+- Cloudflare Dashboard → Workers & Pages → Workers → Create → Connect to your GitHub repo.
+- It will pick up `wrangler.toml` and deploy the Worker on pushes.
 
-Add these repository secrets:
-- `CLOUDFLARE_API_TOKEN`
-- `CLOUDFLARE_ACCOUNT_ID`
-- `WORKER_URL` (e.g. `https://api.janebingley.cc/chat`)
+3) **Worker route**
+- Ensure `wrangler.toml` uses `https://api.janebingley.cc/chat*` in the `routes` field.
