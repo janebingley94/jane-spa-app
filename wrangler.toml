@@ -1,4 +1,4 @@
-name = "jane-spa-app"
+name = "jane-spa-worker"
 main = "worker/src/index.ts"
 compatibility_date = "2024-06-18"
 
