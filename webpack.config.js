@@ -35,7 +35,9 @@ export default {
       template: "./public/index.html"
     }),
     new webpack.DefinePlugin({
-      "process.env.WORKER_URL": JSON.stringify(process.env.WORKER_URL || "https://api.YOUR_DOMAIN/chat")
+      "process.env.WORKER_URL": JSON.stringify(
+        process.env.WORKER_URL || "https://api.janebingley.cc/chat"
+      )
     })
   ],
   devServer: {

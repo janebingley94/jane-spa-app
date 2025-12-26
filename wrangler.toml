@@ -2,4 +2,4 @@ name = "jane-spa-app"
 main = "worker/src/index.ts"
 compatibility_date = "2024-06-18"
 
-routes = ["https://api.janebingley.cc/chat/*"]
+routes = ["https://api.janebingley.cc/chat*"]

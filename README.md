@@ -12,15 +12,15 @@ yarn dev
 Set the worker URL before building:
 
 ```bash
-export WORKER_URL=https://api.YOUR_DOMAIN/chat
+export WORKER_URL=https://api.janebingley.cc/chat
 yarn build
 ```
 
 ## Cloudflare setup
 
 1) **Worker route**
-- Choose: `https://api.YOUR_DOMAIN/chat`
-- Update `wrangler.toml` with your real domain in the `routes` field.
+- Choose: `https://api.janebingley.cc/chat`
+- Ensure `wrangler.toml` uses `https://api.janebingley.cc/chat*` in the `routes` field.
 
 2) **Cloudflare Pages**
 - Create a Pages project named `jane-spa-app` and link to the repo.
@@ -33,5 +33,4 @@ yarn build
 Add these repository secrets:
 - `CLOUDFLARE_API_TOKEN`
 - `CLOUDFLARE_ACCOUNT_ID`
-- `WORKER_URL` (e.g. `https://api.YOUR_DOMAIN/chat`)
-
+- `WORKER_URL` (e.g. `https://api.janebingley.cc/chat`)
