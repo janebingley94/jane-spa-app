@@ -14,8 +14,8 @@ const initialMessages: Message[] = [
   {
     id: "m1",
     role: "assistant",
-    text: "Hi Jane! Ask me anything, I can call our Cloudflare Worker."
-  }
+    text: "Hi Jane! Ask me anything, I can call our Cloudflare Worker.",
+  },
 ];
 
 function App() {
@@ -36,7 +36,7 @@ function App() {
     const userMessage: Message = {
       id: `u-${Date.now()}`,
       role: "user",
-      text: content
+      text: content,
     };
 
     setMessages((prev) => [...prev, userMessage]);
@@ -47,9 +47,9 @@ function App() {
       const response = await fetch(WORKER_URL, {
         method: "POST",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify({ message: content })
+        body: JSON.stringify({ message: content }),
       });
 
       if (!response.ok) {
@@ -64,8 +64,8 @@ function App() {
         {
           id: `a-${Date.now()}`,
           role: "assistant",
-          text: replyText
-        }
+          text: replyText,
+        },
       ]);
     } catch (error) {
       setMessages((prev) => [
@@ -73,8 +73,8 @@ function App() {
         {
           id: `e-${Date.now()}`,
           role: "assistant",
-          text: "Worker is not reachable yet. Please try again after deployment."
-        }
+          text: "Worker is not reachable yet. Please try again after deployment.",
+        },
       ]);
       console.error(error);
     } finally {
@@ -87,13 +87,14 @@ function App() {
       <div className="mx-auto flex min-h-screen max-w-5xl flex-col px-6 py-10">
         <header className="mb-8">
           <div className="inline-flex items-center gap-2 rounded-full bg-white/80 px-4 py-2 text-sm font-semibold uppercase tracking-[0.2em] text-slate-500 shadow-sm">
-            Cloudflare Chat
+            Jane Cloudflare Chat
           </div>
           <h1 className="mt-4 text-4xl font-semibold text-ink sm:text-5xl">
             Jane SPA Assistant
           </h1>
           <p className="mt-2 max-w-2xl text-base text-slate-500">
-            A minimal chat UI built with React, TypeScript, TailwindCSS, and a Cloudflare Worker.
+            A minimal chat UI built with React, TypeScript, TailwindCSS, and a
+            Cloudflare Worker.
           </p>
           <div className="mt-4 inline-flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-600">
             <span className="h-2 w-2 rounded-full bg-emerald-400" />
@@ -106,8 +107,12 @@ function App() {
             <div className="flex h-full flex-col">
               <div className="flex items-center justify-between border-b border-slate-100 px-6 py-4">
                 <div>
-                  <h2 className="text-lg font-semibold text-ink">Conversation</h2>
-                  <p className="text-sm text-slate-500">Realtime worker echo.</p>
+                  <h2 className="text-lg font-semibold text-ink">
+                    Conversation
+                  </h2>
+                  <p className="text-sm text-slate-500">
+                    Realtime worker echo.
+                  </p>
                 </div>
                 <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-500">
                   {messages.length} messages
@@ -117,7 +122,9 @@ function App() {
                 {messages.map((message) => (
                   <div
                     key={message.id}
-                    className={`flex ${message.role === "user" ? "justify-end" : "justify-start"}`}
+                    className={`flex ${
+                      message.role === "user" ? "justify-end" : "justify-start"
+                    }`}
                   >
                     <div
                       className={`max-w-[80%] rounded-2xl px-4 py-3 text-sm leading-relaxed shadow-sm ${
