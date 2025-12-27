@@ -2,6 +2,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import HtmlWebpackPlugin from "html-webpack-plugin";
 import webpack from "webpack";
+import CopyWebpackPlugin from "copy-webpack-plugin";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -33,6 +34,9 @@ export default {
   plugins: [
     new HtmlWebpackPlugin({
       template: "./public/index.html"
+    }),
+    new CopyWebpackPlugin({
+      patterns: [{ from: "public/_redirects", to: "_redirects" }]
     }),
     new webpack.DefinePlugin({
       "process.env.WORKER_URL": JSON.stringify(
