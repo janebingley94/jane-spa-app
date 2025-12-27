@@ -10,6 +10,12 @@ type Message = {
   text: string;
 };
 
+const modelOptions = [
+  { id: "gpt-4o-mini", label: "GPT-4o mini" },
+  { id: "gpt-4o", label: "GPT-4o" },
+  { id: "gpt-4.1-mini", label: "GPT-4.1 mini" }
+];
+
 const initialMessages: Message[] = [
   {
     id: "m1",
@@ -22,6 +28,7 @@ function App() {
   const [messages, setMessages] = useState<Message[]>(initialMessages);
   const [input, setInput] = useState("");
   const [isSending, setIsSending] = useState(false);
+  const [model, setModel] = useState(modelOptions[0].id);
 
   const canSend = input.trim().length > 0 && !isSending;
 
@@ -49,7 +56,7 @@ function App() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ message: content }),
+        body: JSON.stringify({ message: content, model }),
       });
 
       if (!response.ok) {
@@ -139,7 +146,23 @@ function App() {
                 ))}
               </div>
               <div className="border-t border-slate-100 bg-white px-6 py-4">
-                <div className="flex flex-col gap-3 sm:flex-row">
+                <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+                  <div className="sm:w-44">
+                    <label className="mb-1 block text-xs font-medium uppercase tracking-wide text-slate-400">
+                      Model
+                    </label>
+                    <select
+                      className="w-full rounded-2xl border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none transition focus:border-accent focus:ring-2 focus:ring-accent/20"
+                      value={model}
+                      onChange={(event) => setModel(event.target.value)}
+                    >
+                      {modelOptions.map((option) => (
+                        <option key={option.id} value={option.id}>
+                          {option.label}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
                   <input
                     className="flex-1 rounded-2xl border border-slate-200 px-4 py-3 text-sm text-slate-700 outline-none transition focus:border-accent focus:ring-2 focus:ring-accent/20"
                     placeholder="Type a message..."

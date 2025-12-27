@@ -30,3 +30,7 @@ yarn build
 
 3) **Worker route**
 - Ensure `wrangler.toml` uses `https://api.janebingley.cc/chat*` in the `routes` field.
+
+4) **Worker secret**
+- Store your OpenAI API key as a Worker secret:
+  - `npx wrangler secret put OPENAI_API_KEY`
