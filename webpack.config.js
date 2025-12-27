@@ -36,7 +36,13 @@ export default {
       template: "./public/index.html"
     }),
     new CopyWebpackPlugin({
-      patterns: [{ from: "public/_redirects", to: "_redirects" }]
+      patterns: [
+        {
+          from: "public/_redirects",
+          to: "_redirects",
+          toType: "file"
+        }
+      ]
     }),
     new webpack.DefinePlugin({
       "process.env.WORKER_URL": JSON.stringify(
