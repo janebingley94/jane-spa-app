@@ -9,7 +9,7 @@ export default {
     if (request.method === "OPTIONS") {
       return new Response(null, {
         status: 204,
-        headers: corsHeaders()
+        headers: corsHeaders(),
       });
     }
 
@@ -27,47 +27,51 @@ export default {
           status: 500,
           headers: {
             "Content-Type": "application/json",
-            ...corsHeaders()
-          }
+            ...corsHeaders(),
+          },
         }
       );
     }
 
     if (!message) {
       return new Response(
-        JSON.stringify({ reply: "Worker is online. Send a message to get a reply." }),
+        JSON.stringify({
+          reply: "Worker is online. Send a message to get a reply.",
+        }),
         {
           status: 200,
           headers: {
             "Content-Type": "application/json",
-            ...corsHeaders()
-          }
+            ...corsHeaders(),
+          },
         }
       );
     }
 
-    const openAiResponse = await fetch("https://api.openai.com/v1/chat/completions", {
+    const openAiResponse = await fetch("http://localhost:11434/api/chat", {
       method: "POST",
       headers: {
         Authorization: `Bearer ${env.OPENAI_API_KEY}`,
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         model,
-        messages: [{ role: "user", content: message }]
-      })
+        messages: [{ role: "user", content: message }],
+      }),
     });
 
     if (!openAiResponse.ok) {
       const errorText = await openAiResponse.text();
       return new Response(
-        JSON.stringify({ reply: `OpenAI error: ${openAiResponse.status} ${errorText}` }),
+        JSON.stringify({
+          reply: `OpenAI error: ${openAiResponse.status} ${errorText}`,
+        }),
         {
           status: 500,
           headers: {
             "Content-Type": "application/json",
-            ...corsHeaders()
-          }
+            ...corsHeaders(),
+          },
         }
       );
     }
@@ -81,16 +85,16 @@ export default {
       status: 200,
       headers: {
         "Content-Type": "application/json",
-        ...corsHeaders()
-      }
+        ...corsHeaders(),
+      },
     });
-  }
+  },
 };
 
 function corsHeaders() {
   return {
     "Access-Control-Allow-Origin": "*",
     "Access-Control-Allow-Methods": "GET,POST,OPTIONS",
-    "Access-Control-Allow-Headers": "Content-Type"
+    "Access-Control-Allow-Headers": "Content-Type",
   };
 }
